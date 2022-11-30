@@ -1,5 +1,8 @@
 import 'package:ahmed_rascic_tech387_flutter/constants/global_variables.dart';
+import 'package:ahmed_rascic_tech387_flutter/router.dart';
 import 'package:flutter/material.dart';
+
+import 'features/auth/screens/auth_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,22 +27,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Zdravo :))'),
-        ),
-        body: Column(
-          children: [
-            const Center(
-              child: Text('Flutter Demo Home Page'),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Click'),
-            ),
-          ],
-        ),
-      ),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: const AuthScreen(),
     );
   }
 }
