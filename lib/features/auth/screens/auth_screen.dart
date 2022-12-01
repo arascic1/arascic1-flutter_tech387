@@ -15,7 +15,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  Auth _auth = Auth.signup;
+  Auth _auth = Auth.signing;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,8 @@ class _AuthScreenState extends State<AuthScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
+
           child: Column(
-            // ignore: prefer_const_literals_to_create_immutables
             children: [
               const Text(
                 'Welcome',
@@ -34,7 +34,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              // ignore: prefer_const_constructors
+
               ListTile(
                 title: const Text(
                   'Create account',
@@ -44,7 +44,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 leading: Radio(
                   activeColor: GlobalVariables.secondaryColor,
-                  value: Auth.signup,
+                  value: Auth.signing,
                   groupValue: _auth,
                   onChanged: (Auth? val) {
                     setState(() => {
