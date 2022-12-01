@@ -2,6 +2,8 @@ import 'package:ahmed_rascic_tech387_flutter/common/widgets/custom_textfield.dar
 import 'package:ahmed_rascic_tech387_flutter/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/widgets/custom_button.dart';
+
 enum Auth {
   signing, 
   signup,
@@ -41,16 +43,25 @@ class _AuthScreenState extends State<AuthScreen> {
           padding: const EdgeInsets.all(8.0),
 
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
-              const Text(
-                'Welcome',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
+              const Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Text(
+                  'Welcome',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
 
               ListTile(
+                tileColor: _auth == Auth.signup 
+                  ? GlobalVariables.backgroundColor 
+                  : GlobalVariables.greyBackgroundCOlor,
+
                 title: const Text(
                   'Create Account',
                   style: TextStyle(
@@ -70,19 +81,46 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
 
               if(_auth == Auth.signup)
-                Form(
-                  key: _signUpFormKey,
-                  child: Column(
-                    children: [
-                      CustomTextField(
-                        controller: _emailController,
-                        hintText: 'Email',
-                      )
-                    ],
-                  )
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: GlobalVariables.backgroundColor, 
+
+                  child: Form(
+                    key: _signUpFormKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          controller: _nameController,
+                          hintText: 'Name',
+                        ),
+
+                        const SizedBox(height: 10),
+                        CustomTextField(
+                          controller: _emailController,
+                          hintText: 'Email',
+                        ),
+
+                        const SizedBox(height: 10),
+                        CustomTextField(
+                          controller: _passwordController,
+                          hintText: 'Password',
+                        ),
+                      
+                        const SizedBox(height: 10),
+                        CustomButton(
+                          text: 'Sign up',
+                          onTap: () {}
+                        )
+                      ],
+                    )
+                  ),
                 ),
 
               ListTile(
+                tileColor: _auth == Auth.signing 
+                  ? GlobalVariables.backgroundColor 
+                  : GlobalVariables.greyBackgroundCOlor,
+
                 title: const Text(
                   'Sign-in.',
                   style: TextStyle(
@@ -100,6 +138,37 @@ class _AuthScreenState extends State<AuthScreen> {
                   },
                 ),
               ),
+
+              if(_auth == Auth.signing)
+                Container(
+                    padding: const EdgeInsets.all(8),
+                    color: GlobalVariables.backgroundColor, 
+
+                    child: Form(
+                      key: _signUpFormKey,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          CustomTextField(
+                            controller: _emailController,
+                            hintText: 'Email',
+                          ),
+
+                          const SizedBox(height: 10),
+                          CustomTextField(
+                            controller: _passwordController,
+                            hintText: 'Password',
+                          ),
+                        
+                          const SizedBox(height: 10),
+                          CustomButton(
+                            text: 'Sign up',
+                            onTap: () {}
+                          )
+                        ],
+                      )
+                    ),
+                  )
             ],
           ),
         ),

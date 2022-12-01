@@ -10,7 +10,7 @@ class GlobalVariables {
   ]);
 
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
-  static const backgroundColor = Color.fromARGB(255, 255, 231, 231);
+  static const backgroundColor = Color.fromARGB(255, 255, 255, 255);
   static const Color greyBackgroundCOlor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
