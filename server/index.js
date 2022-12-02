@@ -16,6 +16,7 @@ mongoose.connect(DB)
     console.log(e);
   });
 
+app.use(express.json());
 app.use(authRouter);
 
 app.listen(PORT, "0.0.0.0", () => {

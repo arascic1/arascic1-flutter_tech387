@@ -14,27 +14,27 @@ const userSchema = mongoose.Schema({
         
         validate: {
             validator: (value) => {
-                const regex = "/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i";
-                return value.match(re);
+                const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+                return value.match(regex);
             },
 
             message: 'Molimo unesite valjanu email adresu'
-        },
-        
-        password: {
-            required: true,
-            type: String
-        },
-
-        address: {
-            type: String,
-            default: ''
-        },
-
-        type: {
-            type: String,
-            default: 'user'
         }
+    },
+        
+    password: {
+        required: true,
+        type: String,
+    },
+
+    address: {
+        type: String,
+        default: ''
+    },
+
+    type: {
+        type: String,
+        default: 'user'
     }
 });
 
