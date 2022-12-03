@@ -120,7 +120,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(height: 10),
                         CustomButton(
                           text: 'Sign up',
-                          onTap: () {}
+                          onTap: () {
+                            if(_signUpFormKey.currentState!.validate()) {
+                                signUpUser();
+                            }
+                          }
                         )
                       ],
                     )
@@ -156,7 +160,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     color: GlobalVariables.backgroundColor, 
 
                     child: Form(
-                      key: _signUpFormKey,
+                      key: _signInFormKey,
                       child: Column(
                         children: [
                           const SizedBox(height: 10),
@@ -174,7 +178,9 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(height: 10),
                           CustomButton(
                             text: 'Sign up',
-                            onTap: () {}
+                            onTap: () {
+
+                            }
                           )
                         ],
                       )

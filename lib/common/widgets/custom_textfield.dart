@@ -18,13 +18,13 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
 
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Color.fromARGB(95, 0, 0, 0)
           )
         ),
 
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Color.fromARGB(95, 0, 0, 0)
           )
@@ -32,7 +32,11 @@ class CustomTextField extends StatelessWidget {
       ),
       
       validator: (val) {
-
+        if(val == null || val.isEmpty) {
+          return 'Enter your $hintText';
+        }
+        
+        return null;
       }
     );
   }
