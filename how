@@ -1,0 +1,49 @@
+[33mcommit f09606c817acacea3503d486767d45f9c0f488b9[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: arascic <arascic1@etf.unsa.ba>
+Date:   Sat Dec 3 21:33:13 2022 +0100
+
+    napravljena post ruta za login
+
+[1mdiff --git a/server/routes/auth.js b/server/routes/auth.js[m
+[1mindex 7d59539..3ae81c9 100644[m
+[1m--- a/server/routes/auth.js[m
+[1m+++ b/server/routes/auth.js[m
+[36m@@ -1,6 +1,7 @@[m
+ const express = require("express");[m
+ const User = require("../models/user");[m
+ const bcryptjs = require('bcryptjs');[m
+[32m+[m[32mconst jwt = require('jsonwebtoken');[m
+ [m
+ const authRouter = express.Router();[m
+ [m
+[36m@@ -22,4 +23,29 @@[m [mauthRouter.post('/api/signup', async (req, res) => {[m
+     }[m
+ });[m
+ [m
+[32m+[m[32mauthRouter.post('/api/signin', async (req, res) => {[m
+[32m+[m[32m    try {[m
+[32m+[m[32m        const {email, password} = req.body;[m
+[32m+[m[32m        const user = await User.findOne({ email });[m
+[32m+[m[41m        [m
+[32m+[m[32m        if(!user) {[m
+[32m+[m[32m            return res.status(400).json([m
+[32m+[m[32m                {msg : 'Ne postoji korisnik s tim email-om'}[m
+[32m+[m[32m            );[m
+[32m+[m[32m        }[m
+[32m+[m[41m        [m
+[32m+[m[32m        const matches = await bcryptjs.compare(password, user.password);[m
+[32m+[m[32m        if(!matches) {[m
+[32m+[m[32m            return res.status(400).json({[m
+[32m+[m[32m                msg: 'Pogrešan password'[m
+[32m+[m[32m            });[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        const token = jwt.sign({id: user._id}, "passwordKey");[m
+[32m+[m[32m        res.json({token, ...user._doc});[m
+[32m+[m[32m    } catch(e) {[m
+[32m+[m[32m        res.status(500).json({ error: e.message });[m
+[32m+[m[32m    };[m
+[32m+[m[32m});[m
+[32m+[m
+ module.exports = authRouter;[m
+\ No newline at end of file[m

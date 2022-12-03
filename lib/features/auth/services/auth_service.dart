@@ -2,9 +2,13 @@ import 'dart:convert';
 
 import 'package:ahmed_rascic_tech387_flutter/constants/error_handling.dart';
 import 'package:ahmed_rascic_tech387_flutter/constants/utils.dart';
+import 'package:ahmed_rascic_tech387_flutter/features/home/screens/home_screen.dart';
 import 'package:ahmed_rascic_tech387_flutter/models/user.dart';
+import 'package:ahmed_rascic_tech387_flutter/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/global_variables.dart';
 
@@ -64,13 +68,19 @@ class AuthService {
         }
       );
 
-      print(res.body);
-
       httpErrorHandle(
         response: res,
         context: context,
-        onSuccess: () {
-          // todo
+        onSuccess: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          
+          Navigator.pushNamedAndRemoveUntil(
+            context, 
+            HomeScreen.routeName,
+            (route) => false
+          );
         }
       );
     } 
