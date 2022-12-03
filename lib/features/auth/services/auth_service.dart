@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ahmed_rascic_tech387_flutter/constants/error_handling.dart';
 import 'package:ahmed_rascic_tech387_flutter/constants/utils.dart';
 import 'package:ahmed_rascic_tech387_flutter/models/user.dart';
@@ -37,6 +39,38 @@ class AuthService {
         context: context,
         onSuccess: () {
           showSnackBar(context, "Uspješno kreiran account.");
+        }
+      );
+    } 
+    catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void signInUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/signin'),
+        body: jsonEncode({
+          'email': email,
+          'password': password
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        }
+      );
+
+      print(res.body);
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          // todo
         }
       );
     } 
